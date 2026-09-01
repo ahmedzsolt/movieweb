@@ -24,6 +24,8 @@ export async function getRecommendations(id: number) {
     }
 
     const result = await response.json();
-    console.log(result);
-    return result;
+    
+    const recommendations = result.results.slice(0, 5);
+    console.log(recommendations);
+    return recommendations;
 }

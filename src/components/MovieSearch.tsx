@@ -11,6 +11,13 @@ import { getMovies, getRecommendations } from "../services/tmdb";
 function MovieSearch() {
     const [search, setSearch] = useState('');
     const [movies, setMovies] = useState<Movie[]>([]);
+    const [selectedMovies, setSelectedMovies] = useState<Movie[]>([]);
+
+    async function pickFirstMovie(movie: Movie) {
+        const recommendations  = await getRecommendations(movie.id);
+        setMovies(recommendations);
+        setSelectedMovies(prev => [...prev, movie]);
+    }
 
     // Show dropdown results when input is greated than 2
     useEffect(() => {
@@ -36,11 +43,13 @@ function MovieSearch() {
                 onChange={event => setSearch(event.target.value)}
                 placeholder={"Search for a movie..."}
             />
-            <ul>
+            <div>
                 {movies.map(movie => (
-                    <li onClick={() => getRecommendations(movie.id)} key={movie.id}>{movie.title} ({movie.release_date.slice(0, 4)})</li>
+                    <button onClick={() => pickFirstMovie(movie)} key={movie.id}>
+                        {movie.title} ({movie.release_date.slice(0, 4)})
+                    </button>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
