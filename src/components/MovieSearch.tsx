@@ -6,7 +6,7 @@ type Movie = {
 }
 
 import { useEffect, useState } from "react";
-import { getMovies } from "../services/tmdb";
+import { getMovies, getRecommendations } from "../services/tmdb";
 
 function MovieSearch() {
     const [search, setSearch] = useState('');
@@ -38,7 +38,7 @@ function MovieSearch() {
             />
             <ul>
                 {movies.map(movie => (
-                    <li key={movie.id}>{movie.title} ({movie.release_date.slice(0, 4)})</li>
+                    <li onClick={() => getRecommendations(movie.id)} key={movie.id}>{movie.title} ({movie.release_date.slice(0, 4)})</li>
                 ))}
             </ul>
         </div>
