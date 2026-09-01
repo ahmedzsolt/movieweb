@@ -19,7 +19,15 @@ function MovieSearch() {
         const recommendations  = await getRecommendations(movie.id);
         setRecommendedMovies(recommendations);
         setSearchResult([]);
-        console.log(recommendedMovies);
+        console.log(selectedMovies);
+    }
+
+    function getSelectedMovie() {
+        if(selectedMovies.length > 0) {
+            return selectedMovies[selectedMovies.length - 1].title;
+        } else {
+            return;
+        }
     }
 
     // Show dropdown results when input is greated than 2
@@ -54,6 +62,7 @@ function MovieSearch() {
                 ))}
             </div>
             <div>
+                <h2>{getSelectedMovie()}</h2>
                 {recommendedMovies.map(movie => (
                     <button onClick={() => selectMovie(movie)} key={movie.id}>
                         {movie.title} ({movie.release_date.slice(0, 4)})
