@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRecommendations } from "../services/tmdb";
 import type { MovieWebProps } from "../types/types";
-//import type { Movie, MovieSearchProps } from "../types/types";
+import LoadingDots from "./LoadingDots";
 
 function MovieWeb({chosenMovies, setChosenMovies}: MovieWebProps) {
     const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
@@ -29,7 +29,7 @@ function MovieWeb({chosenMovies, setChosenMovies}: MovieWebProps) {
             <button onClick={() => setChosenMovies([])}>Start over</button>
 
             {
-                isLoading ? (<p>Data is loaing...</p>) : 
+                isLoading ? (<LoadingDots />) : 
                 (
                     <>
                         <p>{getChosenMovie().title}</p>
