@@ -1,73 +1,34 @@
-// API info https://developer.themoviedb.org/reference/search-movie
-type Movie = {
-    id: number,
-    title: string,
-    release_date: string
-}
-
 import { useEffect, useState } from "react";
-import { getMovies, getRecommendations } from "../services/tmdb";
+import { getMovies } from "../services/tmdb";
+import type { Movie, MovieSearchProps } from "../types/types";
 
-function MovieSearch() {
-    const [search, setSearch] = useState('');
-    const [searchResult, setSearchResult] = useState<Movie[]>([]);
-    const [selectedMovies, setSelectedMovies] = useState<Movie[]>([]);
-    const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
+function MovieSearch({setChosenMovies}: MovieSearchProps) {
+    const [searchInput, setSearchInput] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
 
-    async function selectMovie(movie: Movie) {
-        setSelectedMovies(prev => [...prev, movie]);
-        const recommendations  = await getRecommendations(movie.id);
-        setRecommendedMovies(recommendations);
-        setSearchResult([]);
-        console.log(selectedMovies);
-    }
-
-    function getSelectedMovie() {
-        if(selectedMovies.length > 0) {
-            return selectedMovies[selectedMovies.length - 1].title;
-        } else {
-            return;
-        }
-    }
-
-    // Show dropdown results when input is greated than 2
     useEffect(() => {
-        if(search.length < 3) {
-            setSearchResult([]);
+        if(searchInput.length < 3) {
+            setSearchResults([]);
             return;
         }
 
-        const timeout = setTimeout(async () => {
-            const moviesData = await getMovies(search);
-            setSearchResult(moviesData.results);
-            console.log(moviesData.results);
+        const timeout = setTimeout( async() => {
+            const movies = await getMovies(searchInput);
+            setSearchResults(movies.results);
         }, 500);
-            
+
         return () => clearTimeout(timeout);
-    }, [search]);
+    }, [searchInput]);
 
     return(
         <div>
-            <input
-                type="text"
-                value={search}
-                onChange={event => setSearch(event.target.value)}
-                placeholder={"Search for a movie..."}
-            />
+            <input type="text" value={searchInput} onChange={event => setSearchInput(event.target.value)} />
             <div>
-                {searchResult.map(movie => (
-                    <button onClick={() => selectMovie(movie)} key={movie.id}>
-                        {movie.title} ({movie.release_date.slice(0, 4)})
-                    </button>
-                ))}
-            </div>
-            <div>
-                <h2>{getSelectedMovie()}</h2>
-                {recommendedMovies.map(movie => (
-                    <button onClick={() => selectMovie(movie)} key={movie.id}>
-                        {movie.title} ({movie.release_date.slice(0, 4)})
-                    </button>
-                ))}
+                {
+                    searchResults.map(movie => (
+                        <button key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>{movie.title}</button>
+                    ))
+                }
             </div>
         </div>
     );
