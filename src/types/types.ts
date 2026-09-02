@@ -5,11 +5,10 @@ export type Movie = {
     poster_path: string
 }
 
-export type MovieSearchProps = {
-  setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
-};
-
 export type MovieWebProps = {
     chosenMovies: Movie[],
-    setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
+}
+
+export type MovieCardProps = {
+    movie: Movie
 }
