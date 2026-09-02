@@ -5,6 +5,7 @@ import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 import type { Movie } from "../types/types";
+import MovieCard from "./MovieCard";
 
 function MovieWeb({chosenMovies}: MovieWebProps) {
     const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
@@ -41,7 +42,7 @@ function MovieWeb({chosenMovies}: MovieWebProps) {
                         <h2>Recommendations:</h2>
                         {
                             recommendedMovies.map(movie => (
-                                <button key={movie.id} onClick={() => setMovie(prev => [...prev, movie])}>{movie.title}</button>
+                                <MovieCard movie={movie} />
                             ))
                         }
                     </>
