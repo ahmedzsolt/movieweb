@@ -31,23 +31,29 @@ function MovieWeb({chosenMovies}: MovieWebProps) {
 
 
     return (
-        <div>
-            <button onClick={() => setMovie([])}>Start over</button>
+        <div className="flex flex-col items-center">
+            <div>
+                <button onClick={() => setMovie([])} className="cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
+            </div>
 
-            {
-                isLoading ? (<LoadingDots />) : 
-                (
-                    <>
-                        <p>{getChosenMovie().title}</p>
-                        <h2>Recommendations:</h2>
-                        {
-                            recommendedMovies.map(movie => (
-                                <MovieCard movie={movie} />
-                            ))
-                        }
-                    </>
-                )
-            }
+            <div>
+                <h2 className="mt-10 mb-8 text-3xl font-bold">Recommendations based on your selection</h2>
+                {
+                    isLoading ? (<LoadingDots />) : 
+                    (
+                        <div className="flex flex-row gap-x-4">
+                            {
+                                recommendedMovies.map(movie => (
+                                    <MovieCard movie={movie} />
+                                ))
+                            }
+                        </div>
+                    )
+                }
+            </div>
+            <div className="grayscale mt-20">
+                <MovieCard movie={getChosenMovie()} />
+            </div>
         </div>
     );
 }
