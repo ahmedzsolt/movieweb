@@ -5,6 +5,7 @@ import type { Movie, MovieSearchProps } from "../types/types";
 function MovieSearch({setChosenMovies}: MovieSearchProps) {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
+    const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
 
     useEffect(() => {
         if(searchInput.length < 3) {
@@ -12,22 +13,32 @@ function MovieSearch({setChosenMovies}: MovieSearchProps) {
             return;
         }
 
+        setIsLoadingSearchResults(true);
+
         const timeout = setTimeout( async() => {
             const movies = await getMovies(searchInput);
-            setSearchResults(movies.results);
+            setSearchResults(movies);
         }, 500);
+
+        setIsLoadingSearchResults(false);
 
         return () => clearTimeout(timeout);
     }, [searchInput]);
 
     return(
-        <div>
-            <input type="text" value={searchInput} onChange={event => setSearchInput(event.target.value)} className="max-w-xl rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg text-white placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10" />
-            <div>
+        <div className="w-3/4 max-w-4xl">
+            <h1 className="text-center mb-3 text-4xl">Search for a movie</h1>
+            <input type="text" value={searchInput} onChange={event => setSearchInput(event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg text-white placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10" />
+            <div className="pt-4 px-4">
                 {
-                    searchResults.map(movie => (
-                        <button key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>{movie.title}</button>
-                    ))
+                    !isLoadingSearchResults ? (
+                        searchResults.map(movie => (
+                            <div className="flex flex-row gap-x-2 mb-2">
+                                <img src={"https://image.tmdb.org/t/p/original/" + movie.poster_path} className="h-8 w-8 object-cover"/>
+                                <button key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>{movie.title} ({movie.release_date.slice(0,4)})</button>
+                            </div>
+                        ))
+                    ) : ''
                 }
             </div>
         </div>

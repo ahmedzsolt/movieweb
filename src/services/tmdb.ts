@@ -13,7 +13,9 @@ export async function getMovies(searchQuery: string) {
 
     const result = await response.json();
 
-    return result;
+    const movies = result.results.slice(0, 10);
+
+    return movies;
 }
 
 export async function getRecommendations(id: number) {
