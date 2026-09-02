@@ -5,5 +5,10 @@ export type Movie = {
 }
 
 export type MovieSearchProps = {
-  setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
 };
+
+export type MovieWebProps = {
+    chosenMovies: Movie[],
+    setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
+}

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getRecommendations } from "../services/tmdb";
+import type { MovieWebProps } from "../types/types";
 //import type { Movie, MovieSearchProps } from "../types/types";
 
-function MovieWeb({chosenMovies, setChosenMovies}) {
-    const [recommendedMovies, setRecommendedMovies] = useState([]);
+function MovieWeb({chosenMovies, setChosenMovies}: MovieWebProps) {
+    const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     function getChosenMovie() {

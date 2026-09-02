@@ -4,7 +4,7 @@ import type { Movie, MovieSearchProps } from "../types/types";
 
 function MovieSearch({setChosenMovies}: MovieSearchProps) {
     const [searchInput, setSearchInput] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState<Movie[]>([]);
 
     useEffect(() => {
         if(searchInput.length < 3) {

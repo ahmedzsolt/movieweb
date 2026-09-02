@@ -4,7 +4,7 @@ import MovieWeb from "./components/MovieWeb";
 import type { Movie } from "./types/types";
 
 function App() {
-  const [chosenMovies, setChosenMovies] = useState<Movie[] | null>([]);
+  const [chosenMovies, setChosenMovies] = useState<Movie[]>([]);
 
   return(
     <main>
