@@ -20,7 +20,7 @@ export async function getMovies(searchQuery: string) {
     return movies;
 }
 
-export async function getRecommendations(movie: Movie) {
+export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations`, options);
 
     if(!response.ok) {
@@ -31,12 +31,14 @@ export async function getRecommendations(movie: Movie) {
     
     let recommendations: Movie[] = [];
 
-    for(const movie of result.results) {
+    result.results.forEach((movie: Movie) => {
         if(recommendations.length === 5) {
-            break;
+            return;
         }
-        recommendations.push(movie);
-    }
+        if(!chosenMovies.some(chosenMovie => chosenMovie.id === movie.id)) {
+            recommendations.push(movie);
+        }
+    });
     
     return recommendations;
 }

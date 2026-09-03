@@ -21,7 +21,7 @@ function MovieWeb() {
         setIsLoading(true);
 
         async function populateRecommendedMovies() {
-            const movies = await getRecommendations(getChosenMovie());
+            const movies = await getRecommendations(getChosenMovie(), chosenMovies);
             setRecommendedMovies(movies);
             setIsLoading(false);
         }
@@ -44,7 +44,7 @@ function MovieWeb() {
                         <div className="flex flex-row gap-x-4">
                             {
                                 recommendedMovies.map(movie => (
-                                    <MovieCard movie={movie} />
+                                    <MovieCard key={movie.id} movie={movie} />
                                 ))
                             }
                         </div>
