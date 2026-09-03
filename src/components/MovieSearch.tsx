@@ -43,7 +43,7 @@ function MovieSearch() {
                         searchResults.map(movie => (
                             <button className="flex flex-row gap-x-2 mb-2 cursor-pointer" key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>
                                 
-                                <span>{movie.title} ({movie.release_date.slice(0,4)})</span>
+                                <span>{movie.title} {movie.release_date ? "(" + movie.release_date.slice(0,4) + ")" : "(unknown year)"}</span>
                             </button>
                         ))
                     ) : ''
