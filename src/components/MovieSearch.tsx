@@ -42,7 +42,7 @@ function MovieSearch() {
                     !isLoadingSearchResults ? (
                         searchResults.map(movie => (
                             <button className="flex flex-row gap-x-2 mb-2 cursor-pointer" key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>
-                                <img src={"https://image.tmdb.org/t/p/original/" + movie.poster_path} className="h-8 w-8 object-cover"/>
+                                
                                 <span>{movie.title} ({movie.release_date.slice(0,4)})</span>
                             </button>
                         ))
