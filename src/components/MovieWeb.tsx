@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { getRecommendations } from "../services/tmdb";
-import type { MovieWebProps } from "../types/types";
+import type { ChosenMovieTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 import type { Movie } from "../types/types";
 import MovieCard from "./MovieCard";
 
-function MovieWeb({chosenMovies}: MovieWebProps) {
+function MovieWeb() {
     const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const setMovie: React.Dispatch<React.SetStateAction<Movie[]>> = useContext(MovieContext);
+    const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
 
     function getChosenMovie() {
         return chosenMovies[chosenMovies.length - 1];
@@ -33,7 +33,7 @@ function MovieWeb({chosenMovies}: MovieWebProps) {
     return (
         <div className="flex flex-col items-center">
             <div>
-                <button onClick={() => setMovie([])} className="cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
+                <button onClick={() => setChosenMovies([])} className="cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
             </div>
 
             <div>

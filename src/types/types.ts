@@ -12,3 +12,8 @@ export type MovieWebProps = {
 export type MovieCardProps = {
     movie: Movie
 }
+
+export type ChosenMovieTypes = {
+    chosenMovies: Movie[],
+    setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
+}

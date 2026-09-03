@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMovies } from "../services/tmdb";
-import type { Movie } from "../types/types";
+import type { Movie, ChosenMovieTypes } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 
@@ -9,7 +9,7 @@ function MovieSearch() {
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
 
-    const setMovie: React.Dispatch<React.SetStateAction<Movie[]>> = useContext(MovieContext);
+    const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
 
     useEffect(() => {
         if(searchInput.length < 3) {
@@ -37,7 +37,7 @@ function MovieSearch() {
                 {
                     !isLoadingSearchResults ? (
                         searchResults.map(movie => (
-                            <button className="flex flex-row gap-x-2 mb-2 cursor-pointer" key={movie.id} onClick={() => setMovie(prev => [...prev, movie])}>
+                            <button className="flex flex-row gap-x-2 mb-2 cursor-pointer" key={movie.id} onClick={() => setChosenMovies(prev => [...prev, movie])}>
                                 <img src={"https://image.tmdb.org/t/p/original/" + movie.poster_path} className="h-8 w-8 object-cover"/>
                                 <span>{movie.title} ({movie.release_date.slice(0,4)})</span>
                             </button>
