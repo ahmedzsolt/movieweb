@@ -1,3 +1,5 @@
+import type { Movie } from "../types/types";
+
 const options = {
     method: 'GET', headers: {
     accept: 'application/json',
@@ -18,8 +20,8 @@ export async function getMovies(searchQuery: string) {
     return movies;
 }
 
-export async function getRecommendations(id: number) {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations`, options);
+export async function getRecommendations(movie: Movie) {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations`, options);
 
     if(!response.ok) {
         throw new Error('Fetch gone wrong');
@@ -27,7 +29,14 @@ export async function getRecommendations(id: number) {
 
     const result = await response.json();
     
-    const recommendations = result.results.slice(0, 5);
-    //console.log(recommendations);
+    let recommendations: Movie[] = [];
+
+    for(const movie of result.results) {
+        if(recommendations.length === 5) {
+            break;
+        }
+        recommendations.push(movie);
+    }
+    
     return recommendations;
 }

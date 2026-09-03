@@ -21,7 +21,7 @@ function MovieWeb() {
         setIsLoading(true);
 
         async function populateRecommendedMovies() {
-            const movies = await getRecommendations(getChosenMovie().id);
+            const movies = await getRecommendations(getChosenMovie());
             setRecommendedMovies(movies);
             setIsLoading(false);
         }
