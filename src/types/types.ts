@@ -3,7 +3,8 @@ export type Movie = {
     title: string,
     overview: string,
     release_date: string,
-    poster_path: string
+    poster_path: string,
+    vote_average: number
 }
 
 export type MovieWebProps = {

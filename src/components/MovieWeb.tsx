@@ -60,13 +60,14 @@ function MovieWeb() {
                     )
                 }
             
-            <div className="flex flex-row gap-x-4 grayscale mt-10 md:items-top px-4">
+            <div className="flex flex-row gap-x-4 mt-10 md:items-top px-4">
                 <div className="basis-1/2">
-                    <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="object-cover"/>
+                    <span className="z-10 absolute btn bg-green-700 px-4 py-2 rounded-full ml-3 mt-3">Rating: {getChosenMovie().vote_average.toFixed(0)} / 10</span>
+                    <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="z-0 object-cover"/>
                 </div>
                 <div className="basis-1/2">
                     <h2 className="md:text-3xl">{getChosenMovie().title}</h2>
-                    <p className="text-sm font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
+                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
                 </div>
             </div>
         </div>
