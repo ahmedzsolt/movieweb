@@ -34,8 +34,9 @@ function MovieSearch() {
     }, [searchInput]);
 
     return(
-        <div className="w-3/4 max-w-4xl">
-            <h1 className="text-center mb-3 text-4xl mt-10">Search for a movie</h1>
+        <div className="w-[90%] max-w-4xl">
+            <h1 className="text-center text-4xl mt-10">Struggle to find a movie?</h1>
+            <p className="text-center mt-6 mb-10 text-base">Select a movie you like, and we will find you recommendations based on that movie.</p>
             <input type="text" placeholder="Type something..." value={searchInput} onChange={event => setSearchInput(event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg text-white placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10" />
             <div className="pt-4 px-4">
                 {
