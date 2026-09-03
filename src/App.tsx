@@ -9,7 +9,7 @@ function App() {
 
   return(
     <MovieContext.Provider value={{chosenMovies, setChosenMovies}}>
-      <main className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col flex flex-col items-center px-5 pt-12 md:pt-40">
+      <main className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col flex flex-col items-center px-5 pt-12 md:pt-40 bg-[url(../src/assets/web3.png)] bg-no-repeat md:bg-top bg-auto md:bg-cover">
         {
           chosenMovies?.length === 0 ? (
             <MovieSearch setChosenMovies={setChosenMovies}/>

@@ -38,13 +38,13 @@ function MovieWeb() {
 
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-[90%] max-w-4xl">
             <div>
                 <button onClick={() => setChosenMovies([])} className="cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
             </div>
 
-            <div>
-                <h2 className="mt-10 mb-8 text-3xl font-bold">Recommendations based on your selection</h2>
+            
+                <h1 className="mt-10 mb-8 text-4xl text-center">Recommendations based on your selection</h1>
                 {
                     isLoading && (<LoadingDots />)
                 }
@@ -59,9 +59,15 @@ function MovieWeb() {
                         </div>
                     )
                 }
-            </div>
-            <div className="grayscale mt-20">
-                <MovieCard movie={getChosenMovie()} />
+            
+            <div className="flex flex-row gap-x-3 grayscale mt-10 items-top px-4">
+                <div>
+                    <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="w-200 object-cover"/>
+                </div>
+                <div>
+                    <h2 className="md:text-3xl">{getChosenMovie().title}</h2>
+                    <p className="text-sm font-light md:mt-3">{getChosenMovie().overview}</p>
+                </div>
             </div>
         </div>
     );
