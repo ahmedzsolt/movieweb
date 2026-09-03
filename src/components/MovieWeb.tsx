@@ -50,7 +50,7 @@ function MovieWeb() {
                 }
                 {
                     (
-                        <div className={isLoading ? "invisible" : "flex flex-row gap-x-4"}>
+                        <div className={`flex flex-row gap-x-4 ${isLoading ? " invisible" : " visible"}`}>
                             {
                                 recommendedMovies.map(movie => (
                                     <MovieCard key={`${getChosenMovie().id}-${movie.id}`} movie={movie} setImagesLoaded={setImagesLoaded} />
@@ -60,13 +60,13 @@ function MovieWeb() {
                     )
                 }
             
-            <div className="flex flex-row gap-x-3 grayscale mt-10 items-top px-4">
-                <div>
-                    <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="w-200 object-cover"/>
+            <div className="flex flex-row gap-x-4 grayscale mt-10 md:items-top px-4">
+                <div className="basis-1/2">
+                    <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="object-cover"/>
                 </div>
-                <div>
+                <div className="basis-1/2">
                     <h2 className="md:text-3xl">{getChosenMovie().title}</h2>
-                    <p className="text-sm font-light md:mt-3">{getChosenMovie().overview}</p>
+                    <p className="text-sm font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
                 </div>
             </div>
         </div>
