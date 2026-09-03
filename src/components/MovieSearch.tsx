@@ -8,12 +8,14 @@ function MovieSearch() {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
+    const [searchCompleted, setSearchCompleted] = useState(false);
 
     const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
 
     useEffect(() => {
         if(searchInput.length < 3) {
             setSearchResults([]);
+            setSearchCompleted(false);
             return;
         }
 
@@ -21,10 +23,12 @@ function MovieSearch() {
 
         const timeout = setTimeout( async() => {
             const movies = await getMovies(searchInput);
-            setSearchResults(movies);
+            if(movies.length > 0) {
+                setSearchResults(movies);
+            }
+            setSearchCompleted(true);
+            setIsLoadingSearchResults(false);
         }, 500);
-
-        setIsLoadingSearchResults(false);
 
         return () => clearTimeout(timeout);
     }, [searchInput]);
@@ -42,6 +46,14 @@ function MovieSearch() {
                                 <span>{movie.title} ({movie.release_date.slice(0,4)})</span>
                             </button>
                         ))
+                    ) : ''
+                }
+
+                {
+                    searchCompleted && searchResults.length < 1 && searchInput.length >= 3 ? (
+                        <div className="flex flex-row gap-x-2 mb-2">
+                            <span>No match found</span>
+                        </div>
                     ) : ''
                 }
             </div>
