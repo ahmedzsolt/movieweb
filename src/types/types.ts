@@ -10,7 +10,8 @@ export type MovieWebProps = {
 }
 
 export type MovieCardProps = {
-    movie: Movie
+    movie: Movie,
+    setImagesLoaded?: React.Dispatch<React.SetStateAction<number>>
 }
 
 export type ChosenMovieTypes = {
