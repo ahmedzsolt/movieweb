@@ -66,10 +66,13 @@ export async function getProviders(movie: Movie, region: string) {
 
     //console.log(result.results[region]['flatrate']);
 
+    const providerIds: [] = result.results[region]['flatrate'].map((provider) => provider.provider_id);
+
     if(result.results[region]['flatrate'] !== undefined) {
-        return result.results[region]['flatrate'];
+        //return result.results[region]['flatrate'];
+        return providerIds;
     } else {
-        return 'No streaming services.';
+        return [];
     }
 }
 
@@ -91,8 +94,18 @@ async function isMovieProvidedByProvider(movie: Movie, region: string) {
     region = region.toUpperCase();
     console.log(`Movie: ${movie.title}`);
     const movieProviders = await getProviders(movie, region);
+
+    movieProviders.forEach(providerId => {
+        dkStreamingProviders.forEach(dkProvider => {
+            if(providerId === dkProvider.provider_id) {
+                return true;
+            }
+        });
+    });
+
+    return false;
     
-    console.log(movieProviders);
+    //console.log(movieProviders);
 }
 
 export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
@@ -106,13 +119,15 @@ export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
     
     let recommendations: Movie[] = [];
 
+    const isMovie = await isMovieProvidedByProvider(movie, 'DK');
+    
     result.results.forEach((movie: Movie) => {
         if(recommendations.length === 5) {
             return;
         }
         if(!chosenMovies.some(chosenMovie => chosenMovie.id === movie.id)) {
             recommendations.push(movie);
-            isMovieProvidedByProvider(movie, 'DK');
+            console.log(isMovie);
         }
     });
     
