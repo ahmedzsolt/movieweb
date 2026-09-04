@@ -91,7 +91,7 @@ export async function getMovies(searchQuery: string) {
 
 async function isMovieProvidedByProvider(movie: Movie, region: string) {
     region = region.toUpperCase();
-    console.log(`Movie: ${movie.title}`);
+    console.log(`Movie: ${movie.original_title}`);
     const movieProviders = await getProviders(movie, region);
 
     let verdict = false;

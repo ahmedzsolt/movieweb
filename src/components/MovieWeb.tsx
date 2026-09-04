@@ -70,7 +70,7 @@ function MovieWeb() {
                     <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="z-0 object-cover"/>
                 </div>
                 <div className="basis-1/2">
-                    <h2 className="md:text-3xl">{getChosenMovie().title}</h2>
+                    <h2 className="md:text-3xl">{getChosenMovie().original_title}</h2>
                     <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3 line-clamp-5 sm:line-clamp-none">Released: {getChosenMovie().release_date.slice(0, 4)}</p>
                     <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
                 </div>
