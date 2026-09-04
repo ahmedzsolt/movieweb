@@ -66,14 +66,13 @@ export async function getProviders(movie: Movie, region: string) {
 
     //console.log(result.results[region]['flatrate']);
 
-    const providerIds: [] = result.results[region]['flatrate'].map((provider) => provider.provider_id);
-
-    if(result.results[region]['flatrate'] !== undefined) {
-        //return result.results[region]['flatrate'];
-        return providerIds;
-    } else {
+    if(result.results[region] === undefined || result.results[region]['flatrate'] === undefined) {
         return [];
     }
+
+    const providerIds: number[] = result.results[region]['flatrate'].map((provider) => provider.provider_id);
+
+    return providerIds;
 }
 
 export async function getMovies(searchQuery: string) {
@@ -95,15 +94,17 @@ async function isMovieProvidedByProvider(movie: Movie, region: string) {
     console.log(`Movie: ${movie.title}`);
     const movieProviders = await getProviders(movie, region);
 
+    let verdict = false;
+
     movieProviders.forEach(providerId => {
         dkStreamingProviders.forEach(dkProvider => {
             if(providerId === dkProvider.provider_id) {
-                return true;
+                verdict = true;
             }
         });
     });
 
-    return false;
+    return verdict;
     
     //console.log(movieProviders);
 }
@@ -117,19 +118,24 @@ export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
 
     const result = await response.json();
     
-    let recommendations: Movie[] = [];
+    const recommendations: Movie[] = [];
 
-    const isMovie = await isMovieProvidedByProvider(movie, 'DK');
-    
-    result.results.forEach((movie: Movie) => {
+    for(const recMovie of result.results) {
+        const isMovieChosenBefore = chosenMovies.some(chosenMovie => chosenMovie.id === recMovie.id);
+
+        if(isMovieChosenBefore) {
+            continue;
+        }
+
+        const isMovieProvided = await isMovieProvidedByProvider(recMovie, 'DK');
+
+        if(isMovieProvided) {
+            recommendations.push(recMovie);
+        }
+
         if(recommendations.length === 5) {
-            return;
+            break;
         }
-        if(!chosenMovies.some(chosenMovie => chosenMovie.id === movie.id)) {
-            recommendations.push(movie);
-            console.log(isMovie);
-        }
-    });
-    
+    }
     return recommendations;
 }
