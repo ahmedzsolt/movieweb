@@ -6,7 +6,40 @@ const options = {
     Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_TOKEN}`
 }};
 
-const dkStreamingProviders = ['Netflix'];
+const dkStreamingProviders = [
+    {
+        name: 'Netflix',
+        provider_id: 8
+    },
+    {
+        name: 'Amazon Prime Video',
+        provider_id: 119
+    },
+    {
+        name: 'Disney Plus',
+        provider_id: 337
+    },
+    {
+        name: 'Viaplay',
+        provider_id: 76
+    },
+    {
+        name: 'HBO Max',
+        provider_id: 1899
+    },
+    {
+        name: 'TV 2 Play',
+        provider_id: 383
+    },
+    {
+        name: 'SkyShowtime',
+        provider_id: 1773
+    },
+    {
+        name: 'Allente',
+        provider_id: 1961
+    }
+];
 
 export async function getMovieProvidersInCountry(region: string) {
     region = region.toUpperCase();
@@ -32,7 +65,12 @@ export async function getProviders(movie: Movie, region: string) {
     const result = await response.json();
 
     //console.log(result.results[region]['flatrate']);
-    return result.results[region]['flatrate'];
+
+    if(result.results[region]['flatrate'] !== undefined) {
+        return result.results[region]['flatrate'];
+    } else {
+        return 'No streaming services.';
+    }
 }
 
 export async function getMovies(searchQuery: string) {
@@ -53,6 +91,7 @@ async function isMovieProvidedByProvider(movie: Movie, region: string) {
     region = region.toUpperCase();
     console.log(`Movie: ${movie.title}`);
     const movieProviders = await getProviders(movie, region);
+    
     console.log(movieProviders);
 }
 
