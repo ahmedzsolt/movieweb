@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecommendations } from "../services/tmdb";
+import { getRecommendations, getProviders, getMovieProvidersInCountry } from "../services/tmdb";
 import type { ChosenMovieTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
@@ -28,6 +28,10 @@ function MovieWeb() {
             setRecommendedMovies(movies);
         }
         populateRecommendedMovies();
+
+        // TESTING
+        //getProviders(getChosenMovie(), 'DK');
+        //getMovieProvidersInCountry('DK');
     }, [chosenMovies]);
 
     useEffect(() => {
