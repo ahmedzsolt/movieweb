@@ -48,11 +48,11 @@ function MovieWeb() {
     return (
         <div className="flex flex-col items-center w-[90%] max-w-4xl">
             <div>
-                <button onClick={() => setChosenMovies([])} className="cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
+                <button onClick={() => setChosenMovies([])} className="mt-10 cursor-pointer btn bg-green-700 px-4 py-2 rounded-full">Start over</button>
             </div>
 
             
-                <h1 className="mt-10 mb-8 text-4xl text-center">{headline}</h1>
+                <h1 className="mt-10 mb-8 text-2xl md:text-4xl text-center">{headline}</h1>
                 {
                     isLoading && (<LoadingDots />)
                 }
@@ -68,15 +68,15 @@ function MovieWeb() {
                     )
                 }
             <h2 className="mt-10 mb-0 text-2xl text-center">Selected movie</h2>
-            <div className="flex flex-row gap-x-4 mt-4 md:mt-8 md:items-top px-4">
+            <div className="flex flex-row gap-x-4 mt-4 mb-8 md:mt-8 md:items-top px-4">
                 <div className="basis-1/2">
                     <span className="z-10 absolute btn bg-green-900 px-4 py-2 rounded-full text-xs md:text-base ml-3 mt-3">Rating: {getChosenMovie().vote_average.toFixed(0)} / 10</span>
                     <img src={"https://image.tmdb.org/t/p/original/" + getChosenMovie().poster_path} className="z-0 object-cover"/>
                 </div>
                 <div className="basis-1/2">
                     <h2 className="md:text-3xl">{getChosenMovie().original_title}</h2>
-                    <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3 line-clamp-5 sm:line-clamp-none">Released: {getChosenMovie().release_date.slice(0, 4)}</p>
-                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
+                    <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3">Released: {getChosenMovie().release_date.slice(0, 4)}</p>
+                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-7 lg:line-clamp-none">{getChosenMovie().overview}</p>
                     <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none"></p>
                 </div>
             </div>

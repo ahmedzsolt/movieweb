@@ -50,8 +50,8 @@ function MovieSearch() {
     return(
         <div className="flow flow-col w-[90%] max-w-4xl">
             <h1 className="text-center text-4xl mt-20">Struggle to find a movie to watch?</h1>
-            <p className="text-center mt-6 mb-10 text-base">Select a movie you like, and we will find you recommendations based on that movie.</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-row gap-x-3 mb-2 justify-center">
+            <p className="text-center mt-6 mb-6 text-base">Select a movie you like, and we will find you recommendations based on that movie.</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-row gap-x-3 mb-0 justify-center">
                 {
                     providers.map(provider => (
                         <label className="text-sm" key={provider.provider_id}>
