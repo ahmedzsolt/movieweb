@@ -22,9 +22,11 @@ export type Provider = {
     checked: boolean
 }
 
-export type ChosenMovieTypes = {
+export type ContextTypes = {
     chosenMovies: Movie[],
     setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>,
     providers: Provider[],
-    setProviders: React.Dispatch<React.SetStateAction<Provider[]>>
+    setProviders: React.Dispatch<React.SetStateAction<Provider[]>>,
+    region: string,
+    setRegion: React.Dispatch<React.SetStateAction<string>>
 }

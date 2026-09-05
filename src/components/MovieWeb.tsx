@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getRecommendations, getProviders, getMovieProvidersInCountry } from "../services/tmdb";
-import type { ChosenMovieTypes } from "../types/types";
+import type { ContextTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
@@ -12,7 +12,7 @@ function MovieWeb() {
     const [imagesLoaded, setImagesLoaded] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
-    const {chosenMovies, setChosenMovies, providers}: ChosenMovieTypes = useContext(MovieContext);
+    const {chosenMovies, setChosenMovies, providers, region}: ContextTypes = useContext(MovieContext);
 
     function getChosenMovie() {
         return chosenMovies[chosenMovies.length - 1];
@@ -24,7 +24,7 @@ function MovieWeb() {
         setRecommendedMovies([]);
 
         async function populateRecommendedMovies() {
-            const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers);
+            const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers, region);
             setRecommendedMovies(movies);
         }
         populateRecommendedMovies();

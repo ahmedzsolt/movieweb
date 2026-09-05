@@ -6,7 +6,7 @@ const options = {
     Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_TOKEN}`
 }};
 
-export const dkStreamingProviders = [
+export const streamingProviders = [
     {
         name: 'Netflix',
         provider_id: 8,
@@ -78,7 +78,7 @@ export async function getProviders(movie: Movie, region: string) {
         return [];
     }
 
-    const providerIds: number[] = result.results[region]['flatrate'].map((provider) => provider.provider_id);
+    const providerIds: number[] = result.results[region]['flatrate'].map((provider: Provider) => provider.provider_id);
 
     return providerIds;
 }
@@ -118,7 +118,7 @@ async function isMovieProvidedByProvider(movie: Movie, region: string, providers
     //console.log(movieProviders);
 }
 
-export async function getRecommendations(movie: Movie, chosenMovies: Movie[], providers) {
+export async function getRecommendations(movie: Movie, chosenMovies: Movie[], providers: Provider[], region: string) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations`, options);
 
     if(!response.ok) {
@@ -136,7 +136,7 @@ export async function getRecommendations(movie: Movie, chosenMovies: Movie[], pr
             continue;
         }
 
-        const isMovieProvided = await isMovieProvidedByProvider(recMovie, 'DK', providers);
+        const isMovieProvided = await isMovieProvidedByProvider(recMovie, region, providers);
 
         if(isMovieProvided) {
             recommendations.push(recMovie);
