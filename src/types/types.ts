@@ -16,7 +16,15 @@ export type MovieCardProps = {
     setImagesLoaded?: React.Dispatch<React.SetStateAction<number>>
 }
 
+export type Provider = {
+    name: string,
+    provider_id: number,
+    checked: boolean
+}
+
 export type ChosenMovieTypes = {
     chosenMovies: Movie[],
-    setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>
+    setChosenMovies: React.Dispatch<React.SetStateAction<Movie[]>>,
+    providers: Provider[],
+    setProviders: React.Dispatch<React.SetStateAction<Provider[]>>
 }

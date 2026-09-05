@@ -12,7 +12,7 @@ function MovieWeb() {
     const [imagesLoaded, setImagesLoaded] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
-    const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
+    const {chosenMovies, setChosenMovies, providers}: ChosenMovieTypes = useContext(MovieContext);
 
     function getChosenMovie() {
         return chosenMovies[chosenMovies.length - 1];
@@ -24,8 +24,9 @@ function MovieWeb() {
         setRecommendedMovies([]);
 
         async function populateRecommendedMovies() {
-            const movies = await getRecommendations(getChosenMovie(), chosenMovies);
+            const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers);
             setRecommendedMovies(movies);
+            //console.log(providers);
         }
         populateRecommendedMovies();
 

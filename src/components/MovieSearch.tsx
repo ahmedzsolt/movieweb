@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMovies, dkStreamingProviders } from "../services/tmdb";
+import { getMovies } from "../services/tmdb";
 import type { Movie, ChosenMovieTypes } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
@@ -9,9 +9,8 @@ function MovieSearch() {
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false);
-    const [providers, setProviders] = useState(dkStreamingProviders);
 
-    const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
+    const {chosenMovies, setChosenMovies, providers, setProviders}: ChosenMovieTypes = useContext(MovieContext);
 
     useEffect(() => {
         if(searchInput.length < 3) {
@@ -38,7 +37,6 @@ function MovieSearch() {
         const name = event.target.name;
         const checked = event.target.checked;
         setProviders(prev => prev.map(provider => provider.name === name ? { ...provider, checked: checked} : provider));
-        console.log(providers);
     }
 
     return(

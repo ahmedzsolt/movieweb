@@ -1,4 +1,4 @@
-import type { Movie } from "../types/types";
+import type { Movie, Provider } from "../types/types";
 
 const options = {
     method: 'GET', headers: {
@@ -97,17 +97,18 @@ export async function getMovies(searchQuery: string) {
     return movies;
 }
 
-async function isMovieProvidedByProvider(movie: Movie, region: string) {
+async function isMovieProvidedByProvider(movie: Movie, region: string, providers: Provider[]) {
     region = region.toUpperCase();
     console.log(`Movie: ${movie.original_title}`);
+    console.log(providers);
     const movieProviders = await getProviders(movie, region);
 
     let verdict = false;
 
     movieProviders.forEach(providerId => {
-        dkStreamingProviders.forEach(dkProvider => {
-            if(providerId === dkProvider.provider_id) {
-                verdict = true;
+        providers.forEach(provider => {
+            if(providerId === provider.provider_id) {
+                verdict = provider.checked;
             }
         });
     });
@@ -117,7 +118,7 @@ async function isMovieProvidedByProvider(movie: Movie, region: string) {
     //console.log(movieProviders);
 }
 
-export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
+export async function getRecommendations(movie: Movie, chosenMovies: Movie[], providers) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations`, options);
 
     if(!response.ok) {
@@ -135,7 +136,7 @@ export async function getRecommendations(movie: Movie, chosenMovies: Movie[]) {
             continue;
         }
 
-        const isMovieProvided = await isMovieProvidedByProvider(recMovie, 'DK');
+        const isMovieProvided = await isMovieProvidedByProvider(recMovie, 'DK', providers);
 
         if(isMovieProvided) {
             recommendations.push(recMovie);
