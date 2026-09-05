@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecommendations, getProviders, getMovieProvidersInCountry } from "../services/tmdb";
+import { getRecommendations } from "../services/tmdb";
 import type { ContextTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
