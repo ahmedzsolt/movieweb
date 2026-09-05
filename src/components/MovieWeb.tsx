@@ -26,15 +26,14 @@ function MovieWeb() {
         async function populateRecommendedMovies() {
             const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers);
             setRecommendedMovies(movies);
-            //console.log(providers);
         }
         populateRecommendedMovies();
 
     }, [chosenMovies]);
 
     useEffect(() => {
-        if(imagesLoaded >= recommendedMovies.length && recommendedMovies.length > 0) {
-            setIsLoading(false)
+        if(imagesLoaded >= recommendedMovies.length && recommendedMovies.length > 0 || recommendedMovies.length === 0) {
+            setIsLoading(false);
         }
     }, [imagesLoaded, recommendedMovies]);
 
@@ -46,13 +45,13 @@ function MovieWeb() {
             </div>
 
             
-                <h1 className="mt-10 mb-8 text-4xl text-center">5 recommendations based on your selection</h1>
+                <h1 className="mt-10 mb-8 text-4xl text-center">{recommendedMovies.length === 0 ? 'No recommendations found - please try again' : 'Recommendations based on your selection:'}</h1>
                 {
                     isLoading && (<LoadingDots />)
                 }
                 {
                     (
-                        <div className={`flex flex-row gap-x-4 ${isLoading ? " invisible" : " visible"}`}>
+                        <div className={`flex flex-row gap-x-4 justify-center basis-1/5 ${isLoading ? " invisible" : " visible"}`}>
                             {
                                 recommendedMovies.map(movie => (
                                     <MovieCard key={`${getChosenMovie().id}-${movie.id}`} movie={movie} setImagesLoaded={setImagesLoaded} />
