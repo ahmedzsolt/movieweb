@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecommendations } from "../services/tmdb";
+import { getRecommendations, getProvidersForMovie } from "../services/tmdb";
 import type { ContextTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
@@ -12,6 +12,7 @@ function MovieWeb() {
     const [imagesLoaded, setImagesLoaded] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [headline, setHeadline] = useState('');
+    const [movieProviders, setMovieProviders] = useState([]);
 
     const {chosenMovies, setChosenMovies, providers, region}: ContextTypes = useContext(MovieContext);
 
@@ -23,6 +24,13 @@ function MovieWeb() {
         setIsLoading(true);
         setImagesLoaded(0);
         setRecommendedMovies([]);
+
+        async function getTheProviders() {
+            const providers = await getProvidersForMovie(getChosenMovie(), region);
+            setMovieProviders(providers);
+        }
+
+        getTheProviders();
 
         async function populateRecommendedMovies() {
             const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers, region);
@@ -77,7 +85,14 @@ function MovieWeb() {
                     <h2 className="md:text-3xl">{getChosenMovie().original_title}</h2>
                     <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3">Released: {getChosenMovie().release_date.slice(0, 4)}</p>
                     <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-7 lg:line-clamp-none">{getChosenMovie().overview}</p>
-                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none"></p>
+                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none mt-5 mb-3">Available on:</p>
+                    <div className="flex flex-row gap-x-4">
+                        {
+                            movieProviders.map(provider => (
+                                <img src={"https://image.tmdb.org/t/p/w300/" + provider.logo_path} className="w-5 md:w-10" />
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </div>

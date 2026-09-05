@@ -83,6 +83,18 @@ export async function getProviders(movie: Movie, region: string) {
     return providerIds;
 }
 
+export async function getProvidersForMovie(movie: Movie, region: string) {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/watch/providers`, options);
+
+    if(!response.ok) {
+        throw new Error('Fetch gone wrong for getting movie providers for chosen movie.');
+    }
+
+    const result = await response.json();
+
+    return result.results[region]?.flatrate ?? [];
+}
+
 export async function getMovies(searchQuery: string) {
     const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}`, options);
 
