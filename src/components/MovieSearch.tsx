@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMovies } from "../services/tmdb";
+import { getMovies, dkStreamingProviders } from "../services/tmdb";
 import type { Movie, ChosenMovieTypes } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
@@ -9,48 +9,7 @@ function MovieSearch() {
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false);
-    const [providers, setProviders] = useState([
-        {
-            name: 'Netflix',
-            provider_id: 8,
-            checked: true
-        },
-        {
-            name: 'Amazon Prime Video',
-            provider_id: 119,
-            checked: true
-        },
-        {
-            name: 'Disney Plus',
-            provider_id: 337,
-            checked: true
-        },
-        {
-            name: 'Viaplay',
-            provider_id: 76,
-            checked: true
-        },
-        {
-            name: 'HBO Max',
-            provider_id: 1899,
-            checked: true
-        },
-        {
-            name: 'TV 2 Play',
-            provider_id: 383,
-            checked: true
-        },
-        {
-            name: 'SkyShowtime',
-            provider_id: 1773,
-            checked: true
-        },
-        {
-            name: 'Allente',
-            provider_id: 1961,
-            checked: true
-        }
-    ]);
+    const [providers, setProviders] = useState(dkStreamingProviders);
 
     const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
 
@@ -78,8 +37,8 @@ function MovieSearch() {
     function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>) {
         const name = event.target.name;
         const checked = event.target.checked;
-        setProviders(prev => [...prev, {'checked': !checked}]);
-        console.log(checked);
+        setProviders(prev => prev.map(provider => provider.name === name ? { ...provider, checked: checked} : provider));
+        console.log(providers);
     }
 
     return(
