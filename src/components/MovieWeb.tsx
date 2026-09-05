@@ -30,9 +30,6 @@ function MovieWeb() {
         }
         populateRecommendedMovies();
 
-        // TESTING
-        //getProviders(getChosenMovie(), 'DK');
-        //getMovieProvidersInCountry('DK');
     }, [chosenMovies]);
 
     useEffect(() => {
