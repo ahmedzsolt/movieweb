@@ -9,6 +9,48 @@ function MovieSearch() {
     const [searchResults, setSearchResults] = useState<Movie[]>([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false);
+    const [providers, setProviders] = useState([
+        {
+            name: 'Netflix',
+            provider_id: 8,
+            checked: true
+        },
+        {
+            name: 'Amazon Prime Video',
+            provider_id: 119,
+            checked: true
+        },
+        {
+            name: 'Disney Plus',
+            provider_id: 337,
+            checked: true
+        },
+        {
+            name: 'Viaplay',
+            provider_id: 76,
+            checked: true
+        },
+        {
+            name: 'HBO Max',
+            provider_id: 1899,
+            checked: true
+        },
+        {
+            name: 'TV 2 Play',
+            provider_id: 383,
+            checked: true
+        },
+        {
+            name: 'SkyShowtime',
+            provider_id: 1773,
+            checked: true
+        },
+        {
+            name: 'Allente',
+            provider_id: 1961,
+            checked: true
+        }
+    ]);
 
     const {chosenMovies, setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
 
@@ -33,10 +75,27 @@ function MovieSearch() {
         return () => clearTimeout(timeout);
     }, [searchInput]);
 
+    function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>) {
+        const name = event.target.name;
+        const checked = event.target.checked;
+        setProviders(prev => [...prev, {'checked': !checked}]);
+        console.log(checked);
+    }
+
     return(
-        <div className="w-[90%] max-w-4xl">
+        <div className="flow flow-col w-[90%] max-w-4xl">
             <h1 className="text-center text-4xl mt-20">Struggle to find a movie to watch?</h1>
             <p className="text-center mt-6 mb-10 text-base">Select a movie you like, and we will find you recommendations based on that movie.</p>
+            <div>
+                {
+                    providers.map(provider => (
+                        <label key={provider.provider_id}>
+                            <input type="checkbox" name={provider.name} checked={!!provider.checked} onChange={handleCheckbox}/>
+                            {provider.name}
+                        </label>
+                    ))
+                }
+            </div>
             <input type="text" placeholder="Type something..." value={searchInput} onChange={event => setSearchInput(event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg text-white placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10" />
             <div className="pt-4 px-4">
                 {
