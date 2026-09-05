@@ -10,7 +10,7 @@ function MovieSearch() {
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false);
 
-    const {chosenMovies, setChosenMovies, providers, setProviders}: ChosenMovieTypes = useContext(MovieContext);
+    const {setChosenMovies, providers, setProviders}: ChosenMovieTypes = useContext(MovieContext);
 
     function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>) {
         const name = event.target.name;
@@ -64,7 +64,7 @@ function MovieSearch() {
             <div>
                 <p className={anyProviderSelected() ? 'invisible' : 'visible text-red-500 text-sm mb-2'}>You must select at least one streaming service.</p>
             </div>
-            <input type="text" placeholder="Type something..." disabled={anyProviderSelected() ? '' : 'disabled text-gray-100'} value={searchInput} onChange={event => setSearchInput(event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg text-white placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10" />
+            <input type="text" placeholder="Type something..." disabled={!anyProviderSelected()} value={searchInput} onChange={event => setSearchInput(event.target.value)} className={`w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10 ${anyProviderSelected() ? 'text-white' : 'text-gray-500'}`} />
             <div className="pt-4 px-4">
                 {
                     !isLoadingSearchResults && anyProviderSelected() ? (

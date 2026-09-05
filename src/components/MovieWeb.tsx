@@ -74,6 +74,7 @@ function MovieWeb() {
                     <h2 className="md:text-3xl">{getChosenMovie().original_title}</h2>
                     <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3 line-clamp-5 sm:line-clamp-none">Released: {getChosenMovie().release_date.slice(0, 4)}</p>
                     <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none">{getChosenMovie().overview}</p>
+                    <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none"></p>
                 </div>
             </div>
         </div>
