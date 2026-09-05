@@ -11,6 +11,7 @@ function MovieWeb() {
     const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
     const [imagesLoaded, setImagesLoaded] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [headline, setHeadline] = useState('');
 
     const {chosenMovies, setChosenMovies, providers, region}: ContextTypes = useContext(MovieContext);
 
@@ -25,6 +26,11 @@ function MovieWeb() {
 
         async function populateRecommendedMovies() {
             const movies = await getRecommendations(getChosenMovie(), chosenMovies, providers, region);
+            if(movies.length === 0) {
+                setIsLoading(false);
+                setRecommendedMovies([]);
+                setHeadline('No recommendations found - please try again.')
+            }
             setRecommendedMovies(movies);
         }
         populateRecommendedMovies();
@@ -32,8 +38,9 @@ function MovieWeb() {
     }, [chosenMovies]);
 
     useEffect(() => {
-        if(imagesLoaded >= recommendedMovies.length && recommendedMovies.length > 0 || recommendedMovies.length === 0) {
+        if(imagesLoaded >= recommendedMovies.length && recommendedMovies.length > 0) {
             setIsLoading(false);
+            setHeadline('Recommendations based on your selection:');
         }
     }, [imagesLoaded, recommendedMovies]);
 
@@ -45,7 +52,7 @@ function MovieWeb() {
             </div>
 
             
-                <h1 className="mt-10 mb-8 text-4xl text-center">{recommendedMovies.length === 0 ? 'No recommendations found - please try again' : 'Recommendations based on your selection:'}</h1>
+                <h1 className="mt-10 mb-8 text-4xl text-center">{headline}</h1>
                 {
                     isLoading && (<LoadingDots />)
                 }
