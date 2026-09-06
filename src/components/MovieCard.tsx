@@ -1,9 +1,15 @@
-import type { MovieCardProps, ChosenMovieTypes } from "../types/types";
+import type { MovieCardProps, ContextTypes } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 
 function MovieCard({movie, setImagesLoaded}: MovieCardProps) {
-    const {setChosenMovies}: ChosenMovieTypes = useContext(MovieContext);
+    const context = useContext(MovieContext);
+
+    if(!context) {
+        throw new Error('MovieContext must be used inside MovieContextProvider');
+    }
+
+    const {setChosenMovies} = context;
     
     function updateImagesLoaded() {
         setImagesLoaded?.((prev: number) => prev + 1);

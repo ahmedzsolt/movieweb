@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMovies } from "../services/tmdb";
-import type { Movie, ContextTypes } from "../types/types";
+import type { Movie } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 
@@ -10,7 +10,13 @@ function MovieSearch() {
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false);
 
-    const {setChosenMovies, providers, setProviders}: ContextTypes = useContext(MovieContext);
+    const context = useContext(MovieContext);
+
+    if(!context) {
+        throw new Error('MovieContext must be used inside MovieContextProvider');
+    }
+
+    const {setChosenMovies, providers, setProviders} = context;
 
     function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>) {
         const name = event.target.name;
