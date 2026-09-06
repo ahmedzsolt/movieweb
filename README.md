@@ -1,4 +1,4 @@
-# Movie Picker
+# MovieWeb
 
 A movie discovery app that lets you explore movies through recommendations and build your own path from one movie to the next - filtered by streaming providers.
 
