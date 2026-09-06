@@ -4,21 +4,21 @@ A movie discovery app that lets you explore movies through recommendations and b
 
 ## Tech Stack
 
-* React
-* TypeScript
-* Tailwind CSS
-* TMDB API
-* React Context API
+- React
+- TypeScript
+- Tailwind CSS
+- TMDB API
+- React Context API
 
 ## Features
 
-* Search for movies using the TMDB API
-* Get movie recommendations based on your selected movie
-* Explore movies by continuously choosing from new recommendations
-* Filter recommendations by selected streaming providers
-* View movie posters, titles and release years
-* Responsive design
-* Loading states while fetching movies and images
+- Search for movies using the TMDB API
+- Get movie recommendations based on your selected movie
+- Explore movies by continuously choosing from new recommendations
+- Filter recommendations by selected streaming providers
+- View movie posters, titles and release years
+- Responsive design
+- Loading states while fetching movies and images
 
 ## Getting Started
 
