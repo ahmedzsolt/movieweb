@@ -1,6 +1,6 @@
-import type { ContextTypes } from '../types/types';
 import { createContext } from 'react';
+import type { ContextTypes } from '../types/types';
 
-const MovieContext: React.Context<ContextTypes | null> = createContext(null);
+const MovieContext = createContext<ContextTypes | null>(null);
 
 export default MovieContext;
