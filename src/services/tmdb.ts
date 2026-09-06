@@ -59,8 +59,6 @@ export async function getMovieProvidersInCountry(region: string) {
     }
 
     const result = await response.json();
-
-    console.log(result.results);
 }
 
 export async function getProviders(movie: Movie, region: string) {
@@ -111,8 +109,6 @@ export async function getMovies(searchQuery: string) {
 
 async function isMovieProvidedByProvider(movie: Movie, region: string, providers: Provider[]) {
     region = region.toUpperCase();
-    console.log(`Movie: ${movie.original_title}`);
-    console.log(providers);
     const movieProviders = await getProviders(movie, region);
 
     let verdict = false;
