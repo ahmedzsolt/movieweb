@@ -19,7 +19,8 @@ export type MovieCardProps = {
 export type Provider = {
     name: string,
     provider_id: number,
-    checked: boolean
+    checked: boolean,
+    logo_path?: string
 }
 
 export type ContextTypes = {

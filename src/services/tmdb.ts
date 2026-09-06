@@ -10,7 +10,7 @@ export const streamingProviders = [
     {
         name: 'Netflix',
         provider_id: 8,
-        checked: true
+        checked: true,
     },
     {
         name: 'Amazon Prime Video',

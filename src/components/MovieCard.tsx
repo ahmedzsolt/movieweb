@@ -1,4 +1,4 @@
-import type { MovieCardProps, ContextTypes } from "../types/types";
+import type { MovieCardProps } from "../types/types";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
 

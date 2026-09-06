@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { getRecommendations, getProvidersForMovie } from "../services/tmdb";
-import type { ContextTypes } from "../types/types";
 import LoadingDots from "./LoadingDots";
 import { useContext } from "react";
 import MovieContext from "../contexts/MovieContext";
-import type { Movie } from "../types/types";
+import type { Movie, Provider } from "../types/types";
 import MovieCard from "./MovieCard";
 
 function MovieWeb() {
@@ -14,7 +13,13 @@ function MovieWeb() {
     const [headline, setHeadline] = useState('');
     const [movieProviders, setMovieProviders] = useState([]);
 
-    const {chosenMovies, setChosenMovies, providers, region}: ContextTypes = useContext(MovieContext);
+    const context = useContext(MovieContext);
+
+    if(!context) {
+        throw new Error('MovieContext must be used inside MovieContextProvider');
+    }
+
+    const {chosenMovies, setChosenMovies, providers, region} = context;
 
     function getChosenMovie() {
         return chosenMovies[chosenMovies.length - 1];
@@ -88,7 +93,7 @@ function MovieWeb() {
                     <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none mt-5 mb-3">Available on:</p>
                     <div className="flex flex-row gap-x-4">
                         {
-                            movieProviders.map(provider => (
+                            movieProviders.map((provider: Provider) => (
                                 <img src={"https://image.tmdb.org/t/p/w300/" + provider.logo_path} className="w-5 md:w-10" />
                             ))
                         }
