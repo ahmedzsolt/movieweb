@@ -57,8 +57,6 @@ export async function getMovieProvidersInCountry(region: string) {
     if(!response.ok) {
         throw new Error('Fetch for getting movie providers for a country gone wrong.');
     }
-
-    const result = await response.json();
 }
 
 export async function getProviders(movie: Movie, region: string) {
