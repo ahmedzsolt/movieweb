@@ -28,33 +28,41 @@ function MovieSearch() {
     );
   }
 
-  function anyProviderSelected() {
-    if (providers.some((provider) => provider.checked)) {
-      return true;
-    } else {
-      return false;
-    }
+  const anyProviderSelected = providers.some((provider) => provider.checked);
+
+  function handleSearchInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+
+    setSearchInput(value);
+    setSearchResults([]);
+    setSearchCompleted(false);
+    setIsLoadingSearchResults(value.length >= 3);
   }
 
   useEffect(() => {
     if (searchInput.length < 3) {
-      setSearchResults([]);
-      setSearchCompleted(false);
       return;
     }
 
-    setIsLoadingSearchResults(true);
+    let ignore = false;
 
     const timeout = setTimeout(async () => {
       const movies = await getMovies(searchInput);
-      if (movies.length > 0) {
-        setSearchResults(movies);
+
+      // If new effect - ignore old result
+      if (ignore) {
+        return;
       }
+
+      setSearchResults(movies);
       setSearchCompleted(true);
       setIsLoadingSearchResults(false);
     }, 500);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      ignore = true;
+    };
   }, [searchInput]);
 
   return (
@@ -83,7 +91,7 @@ function MovieSearch() {
       <div>
         <p
           className={
-            anyProviderSelected()
+            anyProviderSelected
               ? "invisible"
               : "visible text-red-500 text-sm mb-2"
           }
@@ -94,13 +102,13 @@ function MovieSearch() {
       <input
         type="text"
         placeholder="Type something..."
-        disabled={!anyProviderSelected()}
+        disabled={!anyProviderSelected}
         value={searchInput}
-        onChange={(event) => setSearchInput(event.target.value)}
-        className={`w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10 ${anyProviderSelected() ? "text-white" : "text-gray-500"}`}
+        onChange={handleSearchInputChange}
+        className={`w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg placeholder-white/30 shadow-xl backdrop-blur outline-none transition-all focus:border-white/30 focus:bg-white/10 focus:ring-2 focus:ring-white/10 ${anyProviderSelected ? "text-white" : "text-gray-500"}`}
       />
       <div className="pt-4 px-4">
-        {!isLoadingSearchResults && anyProviderSelected()
+        {!isLoadingSearchResults && anyProviderSelected
           ? searchResults.map((movie) => (
               <button
                 className="flex flex-row gap-x-2 mb-2 cursor-pointer text-left"
