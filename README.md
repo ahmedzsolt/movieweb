@@ -4,11 +4,15 @@ A movie discovery app that lets you explore movies through recommendations and b
 
 ## Tech Stack
 
+### Frontend
 - React
 - TypeScript
 - Tailwind CSS
-- TMDB API
-- React Context API
+
+### Tools
+- Vite
+- ESLint
+- Prettier
 
 ## Features
 
