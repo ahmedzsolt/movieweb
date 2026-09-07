@@ -26,24 +26,30 @@ function MovieWeb() {
 
   const currentRecommendedMovies = hasCurrentResult ? recommendedMovies : [];
 
-  const hasNoRecommendations = hasCurrentResult && currentRecommendedMovies.length === 0;
+  const hasNoRecommendations =
+    hasCurrentResult && currentRecommendedMovies.length === 0;
 
-  const imagesAreLoaded = hasCurrentResult && currentRecommendedMovies.length > 0 && imagesLoaded >= currentRecommendedMovies.length;
+  const imagesAreLoaded =
+    hasCurrentResult &&
+    currentRecommendedMovies.length > 0 &&
+    imagesLoaded >= currentRecommendedMovies.length;
 
   const isLoading = !hasNoRecommendations && !imagesAreLoaded;
 
-  const headline = hasNoRecommendations ? "No recommendations found - please try again." : imagesAreLoaded ? "Recommendations based on your selection:" : "";
+  const headline = hasNoRecommendations
+    ? "No recommendations found - please try again."
+    : imagesAreLoaded
+      ? "Recommendations based on your selection:"
+      : "";
 
   useEffect(() => {
     let ignore = false;
 
     async function loadMovieData() {
-      const [movieProvidersResult, movies] = await Promise.all(
-        [
-          getProvidersForMovie(chosenMovie, region),
-          getRecommendations(chosenMovie, chosenMovies, providers, region),
-        ]
-      );
+      const [movieProvidersResult, movies] = await Promise.all([
+        getProvidersForMovie(chosenMovie, region),
+        getRecommendations(chosenMovie, chosenMovies, providers, region),
+      ]);
 
       // If new effect - ignore old result
       if (ignore) {
@@ -100,8 +106,7 @@ function MovieWeb() {
           </span>
           <img
             src={
-              "https://image.tmdb.org/t/p/original/" +
-              chosenMovie.poster_path
+              "https://image.tmdb.org/t/p/original/" + chosenMovie.poster_path
             }
             className="z-0 object-cover"
           />
@@ -121,10 +126,7 @@ function MovieWeb() {
             {movieProviders.map((provider: Provider) => (
               <img
                 key={provider.provider_id}
-                src={
-                  "https://image.tmdb.org/t/p/w300/" +
-                  provider.logo_path
-                }
+                src={"https://image.tmdb.org/t/p/w300/" + provider.logo_path}
                 className="w-5 md:w-10"
               />
             ))}
