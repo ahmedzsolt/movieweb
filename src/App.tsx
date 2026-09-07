@@ -3,7 +3,7 @@ import MovieSearch from "./components/MovieSearch";
 import MovieWeb from "./components/MovieWeb";
 import type { Movie } from "./types/types";
 import MovieContext from "./contexts/MovieContext";
-import { streamingProviders } from "./services/tmdb";
+import { streamingProviders } from "./data/streamingProviders";
 
 function App() {
   const [chosenMovies, setChosenMovies] = useState<Movie[]>([]);
