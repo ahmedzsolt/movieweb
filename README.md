@@ -62,4 +62,4 @@ Movie data, recommendations and streaming provider information are provided by [
 
 ## Live Demo
 
-[View the live demo](live-demo-url)
+[View the live demo](http://movieweb.zsolt.dk)
