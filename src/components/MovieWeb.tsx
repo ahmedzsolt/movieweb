@@ -112,14 +112,14 @@ function MovieWeb() {
           />
         </div>
         <div className="basis-1/2">
-          <h2 className="md:text-3xl">{chosenMovie.original_title}</h2>
-          <p className="text-sm md:text-base font-light mt-2 mb-2 md:mt-3">
+          <h2 className="text-sm md:text-3xl">{chosenMovie.original_title}</h2>
+          <p className="text-xs md:text-base font-light mt-2 mb-2 md:mt-3">
             Released: {chosenMovie.release_date.slice(0, 4)}
           </p>
-          <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-7 lg:line-clamp-none">
+          <p className="text-xs md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-7 lg:line-clamp-none">
             {chosenMovie.overview}
           </p>
-          <p className="text-sm md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none mt-5 mb-3">
+          <p className="text-xs md:text-base font-light md:mt-3 line-clamp-5 sm:line-clamp-none mt-5 mb-3">
             Available on:
           </p>
           <div className="flex flex-row gap-x-4">

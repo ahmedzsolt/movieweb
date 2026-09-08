@@ -92,8 +92,8 @@ function MovieSearch() {
         <p
           className={
             anyProviderSelected
-              ? "invisible"
-              : "visible text-red-500 text-sm mb-2"
+              ? "invisible h-6"
+              : "visible text-red-500 text-sm mb-2 mt-4"
           }
         >
           You must select at least one streaming service.
@@ -111,7 +111,7 @@ function MovieSearch() {
         {!isLoadingSearchResults && anyProviderSelected
           ? searchResults.map((movie) => (
               <button
-                className="flex flex-row gap-x-2 mb-2 cursor-pointer text-left"
+                className="flex flex-row gap-x-2 mb-2 cursor-pointer text-left text-sm md:text-base"
                 key={movie.id}
                 onClick={() => setChosenMovies((prev) => [...prev, movie])}
               >

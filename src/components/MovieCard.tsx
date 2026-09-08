@@ -24,9 +24,9 @@ function MovieCard({ movie, setImagesLoaded }: MovieCardProps) {
         src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
         onLoad={updateImagesLoaded}
         onError={updateImagesLoaded}
-        className="object-cover max-h-24 md:max-h-100"
+        className="object-cover min-h-24 md:max-h-100"
       />
-      <span className="mt-1 text-xs md:text-sm">{movie.original_title}</span>
+      <span className="mt-1 text-[8px] md:text-sm">{movie.original_title}</span>
     </button>
   );
 }
